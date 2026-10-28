@@ -26,7 +26,8 @@ for path in paths:
         errors.append(f"Private/runtime extension: {relative}")
     if any(part in {".private", ".local-state", "private", "backups", "Models", "Application Support"} for part in relative.parts):
         errors.append(f"Private/runtime directory: {relative}")
-    blob = path.read_bytes()
+    # Audit the staged bytes, not a possibly different working-tree version.
+    blob = subprocess.check_output(["git", "show", ":" + relative.as_posix()], cwd=root)
     if len(blob) > 2_000_000:
         errors.append(f"Unexpectedly large source file: {relative}")
     for pattern in patterns:

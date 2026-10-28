@@ -1,0 +1,8 @@
+#!/bin/bash
+set -euo pipefail
+cd "$(git rev-parse --show-toplevel)"
+if ! git diff --quiet HEAD --; then
+  echo 'Publication blocked: commit the intended audited source first.' >&2
+  exit 1
+fi
+python3 scripts/audit-public.py

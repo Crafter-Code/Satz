@@ -86,6 +86,8 @@ Read [PRIVACY.md](PRIVACY.md) and [SECURITY.md](SECURITY.md). Runtime data, mode
 
 Run `python3 scripts/audit-public.py` before publishing. The export script packages only tracked, audited source. Never upload your Application Support directory or a backup of another typing application.
 
+Enable the repository's local Git safeguards with `bash scripts/install-hooks.sh`. They audit staged source before a commit and require a clean, audited tree before a push. These checks are helpful but are not a substitute for reviewing what you publish.
+
 ```sh
 git init -b main
 git add .
